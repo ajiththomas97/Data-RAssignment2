@@ -1,0 +1,216 @@
+Ajith Thomas \| [Ajith.thomas7\@mail.dcu.ie](mailto:Ajith.thomas7@mail.dcu.ie){.email} \| Student ID -- 22268946
+
+# Coverage of Essential health services
+
+*Coverage of essential health services can be told as the average level of scope in areas like reproductive, maternal, newborn, child health, infectious diseases, non-communicable diseases etc. This indicator is calculated as the geometric mean of 14 different areas of health care coverage and acts as an index on a unit less scale of 0 to 100. There are many factors effecting coverage of health services of a country such as:-*
+
+**Economic factors**: - *The availability of healthcare can significantly impacted by a nation's economic situation. High levels of poverty may make it difficult for some nations to give their inhabitants access to healthcare since they lack the funding for such systems.*
+
+**Infrastructure**:- *The availability and caliber of a nation's healthcare infrastructure can have an impact on current levels of health care facilities in the country. Urban locations may have higher number of resources as compared to rural which may have restricted access to healthcare services.*
+
+**Government policies** -- *The government's decision can significantly affect the availability of healthcare. Usually, governments do place high priority on healthcare as a public benefit and may devote more funds to support healthcare programs.*
+
+**Cultural considerations**: *Cultural considerations can also affect how health services are covered. Some cultures could place more value on alternative or traditional medicine, which might result in a lower use of contemporary healthcare services.*
+
+**Geographic factors**: *Geographic factors, such as natural disasters, can also impact healthcare coverage. For example, earthquakes or floods can disrupt healthcare services and limit access to healthcare facilities.*
+
+```{r echo=FALSE, out.width="100%"}
+
+knitr::include_graphics("unnamed.png",error = FALSE)
+```
+
+```{r echo=FALSE,warning=FALSE, message=FALSE}
+## Required Library
+library(tidyverse)
+library(ggplot2)
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(gridExtra)
+library(dplyr)
+```
+
+```{r echo=FALSE}
+### Reading The data
+unicef_indicator_2 <- read_csv("unicef_indicator_2.csv",show_col_types = FALSE)
+unicef_metadata <- read_csv("unicef_metadata.csv",show_col_types = FALSE)
+```
+
+```{r echo=FALSE}
+# getting World map data
+world_map <- ne_countries(scale = "medium", returnclass = "sf")
+```
+
+```{r echo=FALSE}
+# combining world_map data with indicator
+data_merged <- world_map %>%
+  left_join(unicef_indicator_2, by = c("admin" = "country"))
+```
+
+```{r echo=FALSE}
+## Function to plot world map
+plot_map_for_time_period <- function(data, time_period) {
+  ggplot() +
+    geom_sf(data = data %>% filter(time_period == time_period), aes(fill = obs_value)) +
+    scale_fill_viridis_c(option = "plasma", trans = "log10") +
+    theme_minimal() +
+    labs(fill = "Observed Value", title = paste("World Map for Time Period", time_period))
+}
+
+```
+
+## Visualization 1 - World map
+
+```{r echo=FALSE}
+plot_map_for_time_period(data_merged, 2019)
+```
+
+-   Color of the heat map represents the coverage of health services in a country.
+-   The Legend provides us information on the range of the color in relation to data.
+-   African continent has been most effected in terms of coverage of essential health services like hospitals, clinics etc.
+-   This can be logically due to their poorer economic backgrounds.
+-   North America and Australia have the highest observation value in terms of essential health services.
+-   Asia and South American region are not far behind in terms of capabilities.
+
+```{r echo=FALSE}
+## Combining Indicator and metadata
+df <- left_join(unicef_indicator_2, unicef_metadata, by = c('country',"time_period" = "year"))
+
+```
+
+```{r echo=FALSE}
+## Bar Graph Function
+plot_top_countries_by_life_expectancy <- function(data, year, n = 10) {
+  top_n_countries <- data %>%
+    filter(time_period == year) %>%
+    arrange(desc(`Life expectancy at birth`)) %>%
+    head(n)
+  
+  ggplot(top_n_countries, aes(x = reorder(country, `Life expectancy at birth`), y = `Life expectancy at birth`, fill = obs_value)) +
+    geom_bar(stat = "identity") +
+    coord_flip() +
+    theme_minimal() +
+    scale_fill_gradient(low = "blue", high = "red", name = "Obs Value") +
+    labs(x = "Country", y = "Life Expectancy at Birth", title = paste("Top", n, "Countries by Life Expectancy at Birth in", year)) +
+    theme(legend.position = "none")
+}
+######################
+
+plot_bot_countries_by_life_expectancy <- function(data, year, n = 10) {
+  top_n_countries <- data %>%
+    filter(time_period == year) %>%
+    arrange(`Life expectancy at birth`) %>%
+    head(n)
+  
+  ggplot(top_n_countries, aes(x = reorder(country, `Life expectancy at birth`), y = `Life expectancy at birth`, fill = obs_value)) +
+    geom_bar(stat = "identity") +
+    coord_flip() +
+    theme_minimal() +
+    scale_fill_gradient(low = "blue", high = "red", name = "Obs Value") +
+    labs(x = "Country", y = "Life Expectancy at Birth", title = paste("Bot", n, "Countries by Life Expectancy at Birth in", year)) +
+    theme(legend.position = "none")
+}
+```
+
+## Visualization 2 -- Barchart
+
+```{r echo=FALSE}
+### ploting Bar graph
+plot_1 <- plot_top_countries_by_life_expectancy(df, year = 2019, n = 10)
+plot_2 <- plot_bot_countries_by_life_expectancy(df, year = 2019, n = 10)
+
+grid.arrange(plot_1, plot_2,ncol = 1,nrow = 2)
+```
+
+-   Color of the bar chart represents the observation value (which is the coverage of health services in a country).
+-   The length of the bar chart is based on the life expectancy of the country.
+-   Top 10 countries have the highest health coverage as well as the highest life expectancy rates (this shows direct co-relation and suggest that the better the health coverage, the more expected years of living.
+-   Bottom 10 countries, we can assess that their health coverage is significantly lower to the developed nations. This can be attributed to the lack of infrastructure.
+
+```{r echo=FALSE}
+### scater plot Function
+plot_scatter_with_regression <- function(data, time_period) {
+  filtered_data <- data %>% filter(time_period == time_period)
+  
+  ggplot(filtered_data, aes(x = obs_value, y = `GDP per capita (constant 2015 US$)`)) +
+    geom_point() +
+    geom_smooth(method = "lm", se = FALSE, color = "blue", linetype = "solid",na.rm = TRUE ) +
+    theme_minimal() +
+    labs(x = "Obs Value", y = "GDP per Capita", title = paste("Scatterplot with Linear Regression Line for Time Period", time_period))
+}
+
+```
+
+## Visualization 3- Scatterplot
+
+```{r echo=FALSE}
+## ploting scatter_plot
+suppressWarnings({
+  plot_scatter_with_regression(df, time_period = 2021)
+  })
+```
+
+-   X axis is obs value (coverage of essential health services) and Y axis is GDP per capita-
+-   Direct co-relation between GDP per capita and coverage of health services.
+-   The richer the country, more health coverage it has and vice versa.
+
+```{r echo=FALSE}
+## time series graph Function
+
+time_series_chart <- function(data, N, year_col, country_col, obs_col) {
+  
+  # filter for top N countries based on latest observation value
+  top_countries <- data %>%
+    group_by({{country_col}}) %>%
+    summarize(latest_obs = tail({{obs_col}}, n = 1, na.rm = TRUE)) %>%
+    top_n(N, latest_obs) %>%
+    pull({{country_col}})
+  
+  # filter data for top countries
+  df_top <- data %>%
+    filter({{country_col}} %in% top_countries)
+  
+  # create time-series plot
+  ggplot(df_top, aes(x = {{year_col}}, y = {{obs_col}}, color = {{country_col}})) +
+    geom_line() +
+    scale_color_discrete(guide = guide_legend(title = "Country"))
+}
+
+##################################################
+
+time_series_chart_2 <- function(data, N, year_col, country_col, obs_col) {
+  
+  # filter for bottom N countries based on latest observation value
+  bottom_countries <- data %>%
+    group_by({{country_col}}) %>%
+    summarize(latest_obs = tail({{obs_col}}, n = 1, na.rm = TRUE)) %>%
+    arrange(latest_obs) %>%
+    slice(1:N) %>%
+    pull({{country_col}})
+  
+  # filter data for bottom countries
+  df_bottom <- data %>%
+    filter({{country_col}} %in% bottom_countries)
+  
+  # create time-series plot
+  ggplot(df_bottom, aes(x = {{year_col}}, y = {{obs_col}}, color = {{country_col}})) +
+    geom_line() +
+    scale_color_discrete(guide = guide_legend(title = "Bottom 5 Countries"))
+}
+```
+
+## Visualization 4- Time series
+
+```{r echo=FALSE}
+
+#ploting Time series Graph
+plot_x <- time_series_chart(data = df, N = 5, year_col = time_period, country_col = country, obs_col = obs_value)
+
+plot_y <- time_series_chart_2(data = df, N = 5, year_col = time_period, country_col = country, obs_col = obs_value)
+
+grid.arrange(plot_x, plot_y,ncol = 1,nrow = 2)
+
+```
+
+-   Top 10 rich countries -- over two decades, coverage of health services was already very good, as due to which there was incremental improvements\
+-   Bottom 10 poor countries -- over two decades, coverage of health services was already very poor -- but they have had significant improvements but still has a lot of scope of improvements.

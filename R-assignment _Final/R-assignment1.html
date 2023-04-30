@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>r-assignment1</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="R-assignment1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="R-assignment1_files/libs/quarto-html/quarto.js"></script>
+<script src="R-assignment1_files/libs/quarto-html/popper.min.js"></script>
+<script src="R-assignment1_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="R-assignment1_files/libs/quarto-html/anchor.min.js"></script>
+<link href="R-assignment1_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="R-assignment1_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="R-assignment1_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="R-assignment1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="R-assignment1_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+<p>Ajith Thomas | <a href="mailto:Ajith.thomas7@mail.dcu.ie" class="email">Ajith.thomas7@mail.dcu.ie</a> | Student ID – 22268946</p>
+<section id="coverage-of-essential-health-services" class="level1">
+<h1>Coverage of Essential health services</h1>
+<p><em>Coverage of essential health services can be told as the average level of scope in areas like reproductive, maternal, newborn, child health, infectious diseases, non-communicable diseases etc. This indicator is calculated as the geometric mean of 14 different areas of health care coverage and acts as an index on a unit less scale of 0 to 100. There are many factors effecting coverage of health services of a country such as:-</em></p>
+<p><strong>Economic factors</strong>: - <em>The availability of healthcare can significantly impacted by a nation’s economic situation. High levels of poverty may make it difficult for some nations to give their inhabitants access to healthcare since they lack the funding for such systems.</em></p>
+<p><strong>Infrastructure</strong>:- <em>The availability and caliber of a nation’s healthcare infrastructure can have an impact on current levels of health care facilities in the country. Urban locations may have higher number of resources as compared to rural which may have restricted access to healthcare services.</em></p>
+<p><strong>Government policies</strong> – <em>The government’s decision can significantly affect the availability of healthcare. Usually, governments do place high priority on healthcare as a public benefit and may devote more funds to support healthcare programs.</em></p>
+<p><strong>Cultural considerations</strong>: <em>Cultural considerations can also affect how health services are covered. Some cultures could place more value on alternative or traditional medicine, which might result in a lower use of contemporary healthcare services.</em></p>
+<p><strong>Geographic factors</strong>: <em>Geographic factors, such as natural disasters, can also impact healthcare coverage. For example, earthquakes or floods can disrupt healthcare services and limit access to healthcare facilities.</em></p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="unnamed.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<section id="visualization-1---world-map" class="level2">
+<h2 class="anchored" data-anchor-id="visualization-1---world-map">Visualization 1 - World map</h2>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="R-assignment1_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li>Color of the heat map represents the coverage of health services in a country.</li>
+<li>The Legend provides us information on the range of the color in relation to data.</li>
+<li>African continent has been most effected in terms of coverage of essential health services like hospitals, clinics etc.</li>
+<li>This can be logically due to their poorer economic backgrounds.</li>
+<li>North America and Australia have the highest observation value in terms of essential health services.</li>
+<li>Asia and South American region are not far behind in terms of capabilities.</li>
+</ul>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+</section>
+<section id="visualization-2-barchart" class="level2">
+<h2 class="anchored" data-anchor-id="visualization-2-barchart">Visualization 2 – Barchart</h2>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="R-assignment1_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li>Color of the bar chart represents the observation value (which is the coverage of health services in a country).</li>
+<li>The length of the bar chart is based on the life expectancy of the country.</li>
+<li>Top 10 countries have the highest health coverage as well as the highest life expectancy rates (this shows direct co-relation and suggest that the better the health coverage, the more expected years of living.</li>
+<li>Bottom 10 countries, we can assess that their health coverage is significantly lower to the developed nations. This can be attributed to the lack of infrastructure.</li>
+</ul>
+<div class="cell">
+
+</div>
+</section>
+<section id="visualization-3--scatterplot" class="level2">
+<h2 class="anchored" data-anchor-id="visualization-3--scatterplot">Visualization 3- Scatterplot</h2>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 46 rows containing missing values (`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="R-assignment1_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li>X axis is obs value (coverage of essential health services) and Y axis is GDP per capita-</li>
+<li>Direct co-relation between GDP per capita and coverage of health services.</li>
+<li>The richer the country, more health coverage it has and vice versa.</li>
+</ul>
+<div class="cell">
+
+</div>
+</section>
+<section id="visualization-4--time-series" class="level2">
+<h2 class="anchored" data-anchor-id="visualization-4--time-series">Visualization 4- Time series</h2>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="R-assignment1_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li>Top 10 rich countries – over two decades, coverage of health services was already very good, as due to which there was incremental improvements<br>
+</li>
+<li>Bottom 10 poor countries – over two decades, coverage of health services was already very poor – but they have had significant improvements but still has a lot of scope of improvements.</li>
+</ul>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
